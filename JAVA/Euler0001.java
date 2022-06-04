@@ -4,11 +4,30 @@ import java.util.*;
 
 public class Euler0001 {
 
-    public static long getMultiplesOf(int a, int b, long n) {
-        long t1 = a * ((n / a) * ((n / a) + 1)) / 2;
-        long t2 = b * ((n / b) * ((n / b) + 1)) / 2;
-        long t3 = a*b * ((n / a*b) * ((n / a*b) + 1)) / 2;
-        return t1+t2-t3;
+    public static long getTotalMultiplesOf(int a, int b, long n) {
+        long tA = 0; // count of multiples of a
+        long tB = 0; // count of multiples of b
+        long tLCM = 0; // count of multiples of least common multiple of a and b 
+        if (a < b) {
+            if (b % a == 0) {
+                tA = a * ((n / a) * ((n / a) + 1)) / 2;
+            } else {
+                tA = a * ((n / a) * ((n / a) + 1)) / 2;
+                tB = b * ((n / b) * ((n / b) + 1)) / 2;
+                tLCM = a*b * ((n / a*b) * ((n / a*b) + 1)) / 2;
+            }
+        } else if (a > b) {
+            if (a % b == 0) {
+                tB = b * ((n / b) * ((n / b) + 1)) / 2;
+            } else {
+                tA = a * ((n / a) * ((n / a) + 1)) / 2;
+                tB = b * ((n / b) * ((n / b) + 1)) / 2;
+                tLCM = a*b * ((n / a*b) * ((n / a*b) + 1)) / 2;
+            }
+        } else { // if (a == b) 
+            tA = a * ((n / a) * ((n / a) + 1)) / 2;
+        }
+        return tA+tB-tLCM;
     }
 
     public static void main(String[] args) {
@@ -18,7 +37,7 @@ public class Euler0001 {
             long n = in.nextInt();
             int a = 3;
             int b = 5;
-            System.out.println(getMultiplesOf(a, b, n-1));  
+            System.out.println(getTotalMultiplesOf(a, b, n-1));  
         }
         in.close();
     }
